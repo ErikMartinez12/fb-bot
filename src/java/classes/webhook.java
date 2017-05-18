@@ -6,6 +6,7 @@
 package classes;
 
 import entities.EntryEntity;
+import entities.MessagingEntity;
 import entities.PostReqEntity;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class webhook {
   private final FB_API FacebookAPI = new FB_API();
 
   @GET
-  public Response verifyToken(@QueryParam("hub_challenge") String hub_challenge, @QueryParam("hub_verify_token") String hub_verify_token) {
+  public Response verifyToken(@QueryParam("hub.challenge") String hub_challenge, @QueryParam("hub.verify_token") String hub_verify_token) {
     FacebookAPI.sendTextMessage("157031868162783", "Hola como estas");
     if(hub_verify_token.equals(FacebookAPI.VERIFY_TOKEN)) {
       return Response
@@ -50,9 +51,11 @@ public class webhook {
   public Response getRequests(PostReqEntity postReqEntity) {
     boolean bool = false;
     for(EntryEntity item: postReqEntity.entry) {
-      if(item.messaging.getMessage() != null) {
-        FacebookAPI.sendTextMessage(item.messaging.recipient, "Hola como estas");
-        break;
+      for(MessagingEntity subitem: item.messaging) {
+        if(subitem.getMessage() != null) {
+          FacebookAPI.sendTextMessage(subitem.recipient, "Hola como estas");
+          break;
+        }
       }
     }
     

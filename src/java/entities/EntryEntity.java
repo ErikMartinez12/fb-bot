@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.List;
+
 /**
  *
  * @author gbmobile2
@@ -15,11 +17,11 @@ public class EntryEntity {
   
   public int time;
   
-  public MessagingEntity messaging;
+  public List<MessagingEntity> messaging;
   
   public EntryEntity() {}
   
-  public EntryEntity(String id, int time, MessagingEntity messaging) {
+  public EntryEntity(String id, int time, List<MessagingEntity> messaging) {
     this.id = id;
     this.time = time;
     this.messaging = messaging;
@@ -42,11 +44,11 @@ public class EntryEntity {
     this.time = time;
   }
   
-  public MessagingEntity getMessaging() {
+  public List<MessagingEntity> getMessaging() {
     return this.messaging;
   }
   
-  public void setMessaging(MessagingEntity messaging) {
+  public void setMessaging(List<MessagingEntity> messaging) {
     this.messaging = messaging;
   }
 
